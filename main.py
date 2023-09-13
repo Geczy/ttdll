@@ -1,6 +1,7 @@
 import os
 import signal
 import platform
+import asyncio
 from TikTokLive import TikTokLiveClient
 from TikTokLive.types.events import ConnectEvent, DisconnectEvent, LiveEndEvent
 from TikTokLive.types import VideoQuality
@@ -88,10 +89,13 @@ for username in usernames_to_monitor:
 
         waiting_for_online[username] = True
 
+async def main():
+    # Create tasks for each client and run them concurrently
+    tasks = [clients[username].start() for username in usernames_to_monitor]
+    await asyncio.gather(*tasks)
+
 if __name__ == '__main__':
     """
     Note: "ffmpeg" MUST be installed on your machine to run this program
     """
-    # Run the client instances and block the main thread
-    for username in usernames_to_monitor:
-        clients[username].run()
+    asyncio.run(main())
