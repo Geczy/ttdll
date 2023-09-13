@@ -3,6 +3,7 @@ import signal
 import platform
 import asyncio
 from TikTokLive import TikTokLiveClient
+from TikTokLive.types.errors import LiveNotFound
 from TikTokLive.types.events import ConnectEvent, DisconnectEvent, LiveEndEvent
 from TikTokLive.types import VideoQuality
 import datetime
@@ -90,12 +91,23 @@ for username in usernames_to_monitor:
         waiting_for_online[username] = True
 
 async def main():
-    # Create tasks for each client and run them concurrently
-    tasks = [clients[username].start() for username in usernames_to_monitor]
+    tasks = []
+    for username in usernames_to_monitor:
+        tasks.append(start_client_with_retries(username))
     await asyncio.gather(*tasks)
+
+async def start_client_with_retries(username, wait_minutes=5):
+    while True:
+        try:
+            await clients[username].start()
+            break  # Break the loop if successful
+        except LiveNotFound:
+            print(f"Error: The requested user {username} is most likely offline. Retrying in {wait_minutes} minutes.")
+            await asyncio.sleep(wait_minutes * 60)  # Wait for 5 minutes before trying again
 
 if __name__ == '__main__':
     """
     Note: "ffmpeg" MUST be installed on your machine to run this program
     """
     asyncio.run(main())
+
