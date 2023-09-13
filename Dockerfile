@@ -42,7 +42,7 @@ COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 
 # Set work directory and copy code
 WORKDIR /home/myuser/code
-RUN mkdir mp4s
+RUN mkdir recordings
 COPY *.py .
 
 # Environment settings

@@ -13,5 +13,5 @@ fi
 
 docker build -t $CONTAINER_NAME .
 
-mkdir -p ./mp4s
-docker run -v ./mp4s:/home/myuser/code/mp4s -d --name $CONTAINER_NAME $CONTAINER_NAME
+mkdir -p ./recordings
+docker run -v ./recordings:/home/myuser/code/recordings -d --name $CONTAINER_NAME $CONTAINER_NAME

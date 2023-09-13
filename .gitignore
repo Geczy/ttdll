@@ -4,4 +4,4 @@ venv
 TikTokLive.egg-info
 .pypirc
 dev
-mp4s
+recordings
