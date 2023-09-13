@@ -3,7 +3,7 @@ import asyncio
 from TikTokLive import TikTokLiveClient
 from TikTokLive.types.events import ConnectEvent
 
-client = TikTokLiveClient("@bifiana_star")
+client = TikTokLiveClient("@parkergetajob")
 
 
 @client.on("connect")
@@ -27,7 +27,7 @@ async def on_connect(_: ConnectEvent):
 if __name__ == '__main__':
     """
     Note: "ffmpeg" MUST be installed on your machine to run this program
-    
+
     """
 
     # Run the client and block the main thread
