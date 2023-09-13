@@ -51,4 +51,4 @@ ENV VIRTUAL_ENV=/home/myuser/venv
 ENV PATH="/home/myuser/venv/bin:$PATH"
 
 # Set the CMD to execute your app
-CMD ["python", "ttlr.py", "-user", "_ENTER_YOUR_USER_HERE_", "-mode", "auto", "-ffmpeg", "-out_dir", "/home/myuser/mp4s"]
+CMD ["python", "main.py"]
